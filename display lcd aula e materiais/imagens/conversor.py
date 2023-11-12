@@ -7,7 +7,7 @@ try:
     import numpy as np
     import matplotlib.pyplot as plt
     import PySimpleGUI as sg
-except ModuleNotFoundError:
+except:
     try:
       !setup.py install opencv-python
       !setup.py install numpy
