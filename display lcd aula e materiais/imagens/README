@@ -1,8 +1,4 @@
-Sobre as imagens, apenas formato .png ou .jpg, se for alguma coisa
-diferente, procure um conversor de imagem online e converta para 
-.png. Não é necessário redimensionar, mas o que você puder fazer 
-para deixar na resolução de 320x240 ou a resolução exata do kit 
-(80x60) evita perda de informações; Além disso, 
+Sobre as imagens, apenas formato .png ou .jpg, se for alguma coisa diferente, procure um conversor de imagem online e converta para .png. Não é necessário redimensionar, mas o que você puder fazer para deixar na resolução de 320x240 ou a resolução exata do kit (80x60) evita perda de informações; Além disso, 
 
 Caso você não saiba o que é python, é uma linguagem de programação, 
 tudo em python é mais simples, apesar de não ser a mais eficiente 
