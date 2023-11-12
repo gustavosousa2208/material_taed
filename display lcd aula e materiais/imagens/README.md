@@ -1,4 +1,4 @@
-Sobre as imagens, apenas formato .png ou .jpg, se for alguma coisa diferente, procure um conversor de imagem online e converta para .png. Não é necessário redimensionar, mas o que você puder fazer para deixar na resolução de 320x240 ou a resolução exata do kit (80x60) evita perda de informações; Além disso, 
+Sobre as imagens, apenas formato .png ou .jpg, se for alguma coisa diferente, procure um conversor de imagem online e converta para .png. Não é necessário redimensionar, mas o que você puder fazer para deixar na resolução de 320x240 ou a resolução exata do kit (80x60) evita perda de informações; 
 
 Caso você não saiba o que é python, é uma linguagem de programação, 
 tudo em python é mais simples, apesar de não ser a mais eficiente 
@@ -23,5 +23,7 @@ temos as imagens convertidas para .mif.
 A saída do .mif é RGB, seis bits de cor mais 2 de dummy bytes.
 Ex.: RRRRRRXX GGGGGGXX BBBBBBXX
 Se lê do MSB para LSB.
+
+OBS.: caso não funcione num PC normal, slide da aula do diplay contém passos para usar o google colaboratory, o único problema é que se por algum acaso você quiser usar definições diferentes no programa, você não pode, o google colab não consegue gerar janelas de interface de usuário, então deixei travado. Mas você pode editar na hora.
 
 Em caso de dúvida, contate: gustavosousa@alu.ufc.br
