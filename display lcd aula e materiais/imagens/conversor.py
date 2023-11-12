@@ -8,10 +8,16 @@ try:
     import matplotlib.pyplot as plt
     import PySimpleGUI as sg
 except ModuleNotFoundError:
-    system('pip install opencv-python')
-    system('pip install numpy')
-    system('pip install matplotlib')
-    system('pip install PySimpleGUI')
+    try:
+      !setup.py install opencv-python
+      !setup.py install numpy
+      !setup.py install matplotlib
+      !setup.py install PySimpleGUI
+    except:
+      system('pip install opencv-python')
+      system('pip install numpy')
+      system('pip install matplotlib')
+      system('pip install PySimpleGUI')
 
 layout = [[sg.Text("OBS1: Cyclone 2 só suportará 2 imagens de 60x80 no máximo")],
           [sg.Text("OBS2: Coloque suas imagens numa pasta com esse executável, sendo JPG ou PNG")],
@@ -23,14 +29,17 @@ layout = [[sg.Text("OBS1: Cyclone 2 só suportará 2 imagens de 60x80 no máximo
           [sg.Text("ATENÇÃO: Se por acaso tiver FPGA da marca GOWIN, escolha .MI senão .MIF: ")],
           [sg.Combo([".mif", ".mi"], size=(30, 6), default_value=".mif")],
           [sg.Button("OK")]]
+
 window = sg.Window("Demo", layout)
 
-while True:
-    event, values = window.read()
-    if event == "OK" or event == sg.WIN_CLOSED:
-        break
-
-window.close()
+try:
+  while True:
+      event, values = window.read()
+      if event == "OK" or event == sg.WIN_CLOSED:
+          break
+  window.close()
+except:
+  values = ["60x80", "6/6/6", ".mif"]
 
 fileslist = [f for f in listdir(getcwd()) if isfile(join(getcwd(), f))]
 imagelist = [file for file in fileslist if file[-3:] in ["jpg", "png"]]
