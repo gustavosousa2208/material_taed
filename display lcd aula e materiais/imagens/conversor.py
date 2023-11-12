@@ -7,17 +7,22 @@ try:
     import numpy as np
     import matplotlib.pyplot as plt
     import PySimpleGUI as sg
-except:
+except ModuleNotFoundError:
     try:
-      !setup.py install opencv-python
-      !setup.py install numpy
-      !setup.py install matplotlib
-      !setup.py install PySimpleGUI
+      eval("!setup.py install opencv-python")
+      eval("!setup.py install numpy")
+      eval("!setup.py install matplotlib")
+      eval("!setup.py install PySimpleGUI")
     except:
       system('pip install opencv-python')
       system('pip install numpy')
       system('pip install matplotlib')
       system('pip install PySimpleGUI')
+
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+import PySimpleGUI as sg
 
 layout = [[sg.Text("OBS1: Cyclone 2 só suportará 2 imagens de 60x80 no máximo")],
           [sg.Text("OBS2: Coloque suas imagens numa pasta com esse executável, sendo JPG ou PNG")],
