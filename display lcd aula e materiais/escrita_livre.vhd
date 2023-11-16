@@ -28,7 +28,7 @@ architecture rtl of display is
     "000101001"); -- display on
 
     type estados is (parado, comando, comando_escrever, pixels);
-    signal maquina_de_estados, outra_maquina : estados := parado;
+    signal estado_atual, proximo_estado : estados := parado;
 
     signal coluna, deslocamento_coluna : integer range 0 to 320 := 0;
     signal linha, deslocamento_linha : integer range 0 to 320 := 0;
@@ -44,10 +44,10 @@ begin
     o_sck <= i_clk when sck_enable = '1' else '0';
     RGB <= R & "11" & G & "11" & B & "11";
 
-    passador_maquina : process(i_clk, maquina_de_estados, outra_maquina)
+    passador_maquina : process(i_clk, estado_atual, proximo_estado)
     begin
         if rising_edge(i_clk) then
-            maquina_de_estados <= outra_maquina;
+            estado_atual <= proximo_estado;
         end if;
     end process;
 
@@ -79,13 +79,13 @@ begin
         end if;
     end process;
 
-    comandos : process(i_clk, maquina_de_estados, linha, coluna, pixel, i_miso) 
+    comandos : process(i_clk, estado_atual, linha, coluna, pixel, i_miso) 
         variable contagem_bits : integer range 7 downto 0;
         variable contagem_comandos : integer range 0 to sequencia_de_comandos'length; 
         variable comando_enviar : std_logic_vector (8 downto 0);
     begin
         if falling_edge(i_clk) then
-            case maquina_de_estados is
+            case estado_atual is
             when parado =>
                 o_mosi <= '0';
                 o_leds <= not "00000000";
@@ -101,7 +101,7 @@ begin
                 linha <= 0;
 
                 if i_ena = '0' then
-                    outra_maquina <= comando;
+                    proximo_estado <= comando;
                 end if;
 
             when comando =>
@@ -122,7 +122,7 @@ begin
                     if contagem_comandos > 0 then
                         contagem_comandos := contagem_comandos - 1;
                     else
-                        outra_maquina <=  comando_escrever;
+                        proximo_estado <=  comando_escrever;
                     end if;
                 end if;
             when comando_escrever =>
@@ -135,7 +135,7 @@ begin
                     contagem_bits := contagem_bits - 1;
                 else
                     contagem_bits := 7;
-                    outra_maquina <=  pixels;
+                    proximo_estado <=  pixels;
                 end if;
             when pixels =>
                 sck_enable <= '1';
@@ -150,7 +150,7 @@ begin
                         coluna <= 0;
                         if linha = 319 then
                             linha <= 0;
-                            outra_maquina <=  comando_escrever;
+                            proximo_estado <=  comando_escrever;
                         else
                             linha <= linha + 1;
                         end if;
