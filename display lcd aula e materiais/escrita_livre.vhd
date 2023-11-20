@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity display is 
     port(
-        i_clk, i_miso, i_ena, i_reset : in std_logic;
+        i_clk, i_miso : in std_logic;
         o_cs, o_sck, o_mosi, o_dc : out std_logic;
         o_leds : out std_logic_vector(7 downto 0);
         mem_addr : out std_logic_vector(14 downto 0);
@@ -100,9 +100,7 @@ begin
                 coluna <= 0;
                 linha <= 0;
 
-                if i_ena = '0' then
-                    proximo_estado <= comando;
-                end if;
+                proximo_estado <= comando;
 
             when comando =>
                 o_cs <= '0';
