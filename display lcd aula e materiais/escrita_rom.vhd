@@ -7,7 +7,7 @@ entity display is
         i_clk, i_miso, i_ena, i_reset : in std_logic;
         o_cs, o_sck, o_mosi, o_dc : out std_logic;
         o_leds : out std_logic_vector(7 downto 0);
-        mem_addr : out std_logic_vector(14 downto 0);
+        mem_addr : out std_logic_vector(12 downto 0);
         mem_data : in std_logic_vector(17 downto 0)
     );
 end entity;
@@ -40,7 +40,8 @@ architecture rtl of display is
     signal RGB : std_logic_vector (0 to 23);
 
     constant constante_comando_escrever : std_logic_vector (7 downto 0) := "00101100";
-    constant escala : integer := 2;
+    -- usando o cyclone II voce pode colocar duas imagens 80x60, entao a escala e 4
+    constant escala : integer := 4;
 begin    
     o_sck <= i_clk when sck_enable = '1' else '0';
     RGB <= R & "11" & G & "11" & B & "11";
@@ -48,7 +49,7 @@ begin
     R <= mem_data(17 downto 12);
     G <= mem_data(11 downto 6);
     B <= mem_data(5 downto 0);
-    mem_addr <= std_logic_vector(to_unsigned(((240/escala) * (linha/escala)) + (coluna/escala), 15)); 
+    mem_addr <= std_logic_vector(to_unsigned(((240/escala) * (linha/escala)) + (coluna/escala), 13)); 
 
     passador_maquina : process(i_clk, estado_atual, proximo_estado)
     begin
